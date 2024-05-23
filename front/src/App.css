@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.mainBackground {
+    background-color: rgb(27, 25, 25);
+}
+nav{
+    width: 100%;
+    color: white;
+}
+.navbar {
+    min-height: 42px;
+    background-color: rgba(3,37,65, 0.8);
+    display: flex;
+    justify-content:space-between;
+    width: 100%;
+  
+    
+}
+.nav_list {
+    padding-left: 0;
+    margin: auto 16px;
+
+}
+.nav_items {
+    border-radius: 10px;
+    padding: auto;
+    margin: 0px 16px;
+    display: inline-block;
+}
+.nav_items_name {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px 5px 10px;
+    display: inline-block;
+}
+.nav_items_name:hover {
+    background-color: #f5f5f5;
+    color: black;
+    border-radius: 5px;
+}
+.footer {
+    background-color: rgba(3,37,65, 0.8);
+    color: white;
+    text-align: center;
+    padding: 0px;
+    /* position: fixed; */
+    bottom: 0;
+    width: 100%;
+}

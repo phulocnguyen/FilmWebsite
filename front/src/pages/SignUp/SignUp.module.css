@@ -1,0 +1,135 @@
+
+::placeholder {
+  color: #6a6a6a;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0;
+}
+
+.SignUp {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: 480px;
+  line-height: 0.8rem;
+  margin: 50px auto 100px auto;
+  font-family: "Roboto", sans-serif;
+
+}
+
+.headingSignUp {
+  align-items: center;
+  font-size: 2.4rem;
+  margin: 20px 0 20px 0;
+  text-transform: uppercase;
+}
+
+.formGroup {
+  margin: 20px 0;
+  width: 100%;
+}
+
+.formInput {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  left: 0;
+  padding-left: 8px;
+}
+
+.headInput {
+  display: block;
+  margin-bottom: 16px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.inputData {
+  padding: 0 10px;
+  width: 100%;
+  border-radius: 5px;
+  height: 40px;
+  border: 2px solid #6a6a6a;
+  margin-bottom: 12px;
+}
+
+.inputGender {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+.headInputGender {
+  display: block;
+  margin: 0 0 16px 8px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 500;
+  position: relative;
+  top: 5px;
+}
+
+
+.radioInput {
+  width: 20px;
+  height: 18px;
+  margin: 4px;
+}
+
+.radio-label {
+  margin-left: 4px;
+  position: relative;
+  top: -3px;
+}
+
+.submitSignUp {
+  height: 60px;
+  width: 150px;
+  border-radius: 60px;
+  background-color: #1dade6;
+  color: #111;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 40px;
+  margin: 20px 0;
+  cursor: pointer;
+  border: none;
+  text-transform: uppercase;
+
+}
+
+.submitSignUp:hover {
+  transform: scale(1.02);
+  opacity: 0.8;
+}
+
+.rulesSignUp {
+  font-size: 12px;
+  display: block;
+  margin: 20px 12px;
+}
+
+.rulesSignUpLink {
+  color: #1dade6;
+  cursor: pointer;
+}
+
+.hasAccount {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.hasAccountLink {
+  color: #1dade6;
+  margin-left: 2%;
+}
+  
+.warning {
+  color: red;
+  margin-top: 10px;
+}

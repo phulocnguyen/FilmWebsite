@@ -1,0 +1,56 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "clean": "rimraf mochawesome-report/",
+    "test": "npm run clean && mocha --timeout 100000 --reporter mochawesome",
+    "account-test": "mocha ./test/user.test.js --timeout 100000",
+    "review-test": "mocha ./test/apireview.test.js --timeout 100000"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Khoi1905/AI_SYSTEM"
+  },
+  "keywords": [
+    "js",
+    "json"
+  ],
+  "author": "groupSE",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Khoi1905/AI_SYSTEM"
+  },
+  "homepage": "https://github.com/Khoi1905/AI_SYSTEM#readme",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "barbel": "^0.0.9",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3",
+    "http": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.4.0",
+    "mongoose": "^8.2.1",
+    "morgan": "^1.10.0",
+    "node-fetch": "^2.7.0",
+    "node-themoviedb": "^0.2.8",
+    "nodemailer": "^6.9.13",
+    "nodemon": "^3.1.0",
+    "y": "^0.3.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.3",
+    "chai-http": "^4.4.0",
+    "cross-env": "^7.0.3",
+    "mocha": "^8.3.1",
+    "mochawesome": "^7.1.3",
+    "rimraf": "^3.0.2"
+  }
+}

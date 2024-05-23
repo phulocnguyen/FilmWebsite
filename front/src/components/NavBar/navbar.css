@@ -1,0 +1,148 @@
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+
+nav {
+    text-transform: uppercase;
+    background-color: #000000;
+    width: 100%;
+    font-family: "Rubik", sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    height: 3.5em;
+}
+
+.logo {
+    margin-right: 0px ;
+}
+.nav ul {
+    width: 100%;
+}
+.nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin: 10px 20px;
+}
+nav ul li Link {
+    color: rgb(255, 255, 255);
+    text-decoration: none  ;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    flex-direction: row;
+    background-color: #130f14;
+}
+.nar_items{
+    margin: 10px auto;
+
+}
+.nav_list {
+    display: inline-flex;
+    align-items: center;
+}
+
+.nav_list auth {
+    margin-right: auto;
+}
+
+.nav_items_name:hover {
+    background-color: #f5f5f5;
+    color: black;
+    border-radius: 5px;
+}
+
+.container-menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    align-items: end;
+    height: 7vh;
+    margin-right: 0px;
+    /* background-color:#cb6e6e */
+}
+
+.profile {
+    background-color: #000000;
+    border: none;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding: auto;
+}
+
+.profile:hover {
+    cursor: pointer;
+}
+
+.profile-picture {
+    background-color: #000000;
+    border: none;
+    margin: 5%;
+    padding: auto;
+    position: relative;
+}
+
+.button:hover{
+    cursor: pointer;
+}
+
+.dropdown-down-profile {
+    position: absolute;
+    top: 100%;
+    right: 10%;
+    width: 320px;
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.5s;
+    /* margin: 5px 50px; */
+}
+
+
+.menu-sub{
+    padding: 10px;
+    margin-right:5px 10px;
+    border-bottom: 1px solid #000000;
+    /* max-width: 500px; */
+    display: flex;
+    flex-direction: column;
+    background-color: #3e3d3d;
+    border-radius: 5px;
+    
+}
+.user-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    margin-right: 10px;
+    /* border-bottom: 1px solid #000000; */
+    text-align: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+.user-info h1{
+    font-weight: 500px;
+}
+.menu_items_link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #ffffff;
+    margin: 12px 0;
+    padding: 10px;
+}
+
+.menu_items_link:hover{
+    background-color: #f5f5f5;
+    color: black;
+    border-radius: 5px;
+}
