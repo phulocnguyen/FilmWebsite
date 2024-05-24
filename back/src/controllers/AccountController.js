@@ -81,11 +81,11 @@ class AccountController {
         }
     }
 
-    async getFavorite(req, res) {
+    async getCart(req, res) {
         try{
             const user = await User.findOne({username: req.params.username});
-            if(user && user.favoriteFilm) {
-                res.send(user.favoriteFilm);
+            if(user && user.CartFilm) {
+                res.send(user.CartFilm);
             } else {
                 res.send('0');
             }
@@ -93,7 +93,7 @@ class AccountController {
             res.send('can not find user');
         }
     }
-    async addFavorite(req, res) {
+    async addCart(req, res) {
         const { username, movieId } = req.params;
     
         function isValidMovieId(movieId) {
@@ -117,31 +117,32 @@ class AccountController {
                 return;
             }
     
-            if (user.favoriteFilm.includes(movieId)) {
-                res.status(409).send({ success: false, message: "Movie already in favorites" });
+            if (user.CartFilm.includes(movieId)) {
+                res.status(409).send({ success: false, message: "Movie already in Carts" });
                 return;
             }
     
-            user.favoriteFilm.push(movieId);
+            user.CartFilm.push(movieId);
             user.save();
-            res.status(200).send({ success: true, message: "Add favorite film success", favorite: user.favoriteFilm });
+            res.status(200).send({ success: true, message: "Add Cart film success", Cart: user.CartFilm });
         } catch (error) {
             console.error("Error occurred:", error);
             res.status(500).send({ success: false, message: "Error occurred" });
         }
     }
     
-    async removeFavorite(req, res){
+    
+    async removeCart(req, res){
         const { username, movieId } = req.params;
         try{
             const user = await User.findOne({username: username});
-            if(user && user.favoriteFilm.findIndex(film => film === movieId) !== -1){
-                user.favoriteFilm = user.favoriteFilm.filter(film => film !== movieId);
+            if(user && user.CartFilm.findIndex(film => film === movieId) !== -1){
+                user.CartFilm = user.CartFilm.filter(film => film !== movieId);
                 user.save();
-                res.send({success: true, message: "remove favorite film success",favorite: user.favoriteFilm});
+                res.send({success: true, message: "remove Cart film success",Cart: user.CartFilm});
             }
             else {
-                res.send({message: 'Movie not found in favorite list'});
+                res.send({message: 'Movie not found in Cart list'});
             }
         } catch {
             res.send({message: 'can not find user'});
@@ -259,7 +260,8 @@ class AccountController {
                         from: process.env.EMAIL,
                         to: email,
                         subject: 'New Password',
-                        html: `<h1>Your new password is ${newPassword}</h1>`
+                        html: `<h1>Your new password is ${newPassword}</h1>
+                        <p> link to login: <a href="http://localhost:3000/login">Login</a> </p>`
                     };
                     const transporter = await EmailTransporter();
                     transporter.sendMail(mailOptions);
@@ -274,6 +276,33 @@ class AccountController {
             console.log(error);
             res.send({error: error, success: false, message: "error to verify otp"});
 
+        }
+    }
+    async verifyEmailOTP(req, res) {
+        const { email, otp } = req.body;
+        try {
+            const userVerification = await UserVerification.findOne({ email: email });
+            if (userVerification) {
+                const expireAt = userVerification.expireAt;
+                if (Date.now() > expireAt) {
+                    await UserVerification.deleteMany({ email: email });
+                    throw new Error("OTP expired");
+                }
+                const match = await bcrypt.compare(otp, userVerification.otp);
+                if (match) {
+                    await User.updateOne({ email: email }, { verified: true });
+                    await UserVerification.deleteMany({ email: email });
+                    
+                    res.send({ email: email, success: true, message: "OTP verification successful. Your email has been verified." });
+                } else {
+                    res.send({ success: false, message: "OTP not match" });
+                }
+            } else {
+                res.send({ success: false, message: "OTP not found" });
+            }
+        } catch (error) {
+            console.log(error);
+            res.send({ error: error.message, success: false, message: "Error verifying OTP" });
         }
     }
     async sendOTPVerification(req, res){

@@ -29,8 +29,8 @@ const accountApi = {
         return { err };
     }
     },
-    getFavorite: async (username) => {
-    const url = `account/${username}/favorite`;
+    getCart: async (username) => {
+    const url = `account/${username}/Cart`;
     try {
         const response = await publicClient.get(url);
         return response;
@@ -49,8 +49,8 @@ const accountApi = {
     }
     }
     ,
-    addFavorite: async (username, movieId, accessToken) => {
-        const url = `account/${username}/addfavorite/${movieId}`;
+    addCart: async (username, movieId, accessToken, rate) => {
+        const url = `account/${username}/addCart/${movieId}`;
         console.log(url);
         try {
             const response = await publicClient.post(
@@ -68,8 +68,8 @@ const accountApi = {
             return { err };
         }
     },
-    removeFavorite: async (username, movieId, accessToken) => {
-        const url = `account/${username}/removefavorite/${movieId}`;
+    removeCart: async (username, movieId, accessToken) => {
+        const url = `account/${username}/removeCart/${movieId}`;
         try {
             const response = await publicClient.post(
                 url,
@@ -149,6 +149,16 @@ const accountApi = {
     },
     verifyOTP: async (data) => {
         const url = '/account/verify-otp';
+        try {
+            const response = await publicClient.post(url, data);
+            return response;
+        } catch (err) {
+            return { err };
+        }
+    },
+
+    verifyEmailOTP: async (data) => {
+        const url = '/account/verify-email-otp';
         try {
             const response = await publicClient.post(url, data);
             return response;

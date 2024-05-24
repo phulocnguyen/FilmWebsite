@@ -49,16 +49,20 @@ function FormSignup() {
             setShowMessage(true);
           }
         } else {
-              accountApi.sendOTPVerify({ email: formData.email }).then((res) => {
-                if (res.success === "true") {
-                  toast.success("A verification code has been sent to your email");
-                  navigate("/verify-otp");
-                  const user = { email: res.email, _id: res._id };
-                  localStorage.setItem("user", JSON.stringify(user));
-                } else {
-                  toast.error("An error occurred");
-                }
-              });
+          accountApi.sendOTPVerify({ email: formData.email })
+          .then((res) => {
+            if (res.success === true) {
+              toast.success("A verification code has been sent to your email");
+              const user = { email: formData.email };
+              localStorage.setItem("user", JSON.stringify(user));
+              navigate("/verify-otp");
+            } else {
+              toast.error("An error occurred");
+            }
+          })
+          .catch((error) => {
+            toast.error(`An error occurred: ${error.message}`);
+          });
             }
           }); 
         }

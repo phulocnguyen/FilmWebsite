@@ -17,7 +17,8 @@ import UpdatePassword from "./pages/UpdatePassword/UpdatePassword.jsx";
 import AdminPage from "./pages/AdminPage/AdminPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage.jsx"
 import { Box } from "@mui/material";
-
+import Checkout from "./pages/checkout.jsx";
+import VerifyOTP from "./pages/verify-otp.jsx";
 
 function App() {
   const token = localStorage.getItem("token") ? localStorage.getItem("token") : false;
@@ -43,6 +44,8 @@ function App() {
             <Route path="/account/:username/update-profile" element={<UpdateProfile />} />
             <Route path="/account/:username/update-password" element={<UpdatePassword />} />
             <Route path="/admin" element={<AdminPage/> } />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/verify-otp" element={<VerifyOTP />} />
           </Routes>
         </Box>
         

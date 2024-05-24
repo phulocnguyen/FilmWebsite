@@ -8,9 +8,9 @@ router.post('/signup', accountController.signUp);
 router.post('/login', accountController.login);
 router.get('/all', accountController.getAllUsers);
 router.get('/:username', accountController.getDetails);
-router.get('/:username/favorite',accountController.getFavorite);
-router.post('/:username/addfavorite/:movieId',tokenMiddleware.authenticateToken,accountController.addFavorite);
-router.post('/:username/removefavorite/:movieId',tokenMiddleware.authenticateToken,accountController.removeFavorite);
+router.get('/:username/Cart',accountController.getCart);
+router.post('/:username/addCart/:movieId',tokenMiddleware.authenticateToken,accountController.addCart);
+router.post('/:username/removeCart/:movieId',tokenMiddleware.authenticateToken,accountController.removeCart);
 router.put('/:username/update-profile',tokenMiddleware.authenticateToken,accountController.updateProfile);
 router.put('/:username/update-password',tokenMiddleware.authenticateToken,accountController.updatePassword);
 router.put('/reset-password', accountController.resetPassword);
@@ -18,6 +18,7 @@ router.delete('/:username/delete', tokenMiddleware.authenticateToken, accountCon
 router.delete('/admin-delete',accountController.adminDeleteAccount);
 router.post('/send-otp', accountController.sendOTPVerification);
 router.post('/verify-otp', accountController.verifyOTP);
+router.post('/verify-email-otp', accountController.verifyEmailOTP);
  
 
 

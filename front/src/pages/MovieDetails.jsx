@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
+import CartBorderOutlinedIcon from "@mui/icons-material/ShoppingCartCheckoutOutlined.js";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import MediaSlider from "../components/common/MediaSlider.jsx";
@@ -26,7 +26,7 @@ import IconButton from "@mui/material/IconButton";
 import { useAuth } from "../hooks/AuthContext.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import CartIcon from "@mui/icons-material/ShoppingCart.js";
 
 //test
 
@@ -40,8 +40,8 @@ function MovieDetail() {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
-  const [isFavorite, setIsFavorite] = useState(false);
-  const [favoriteList, setFavoriteList] = useState([]);
+  const [isCart, setIsCart] = useState(false);
+  const [CartList, setCartList] = useState([]);
   const [value, setValue] = React.useState("one");
 
   const handleChange = (event, newValue) => {
@@ -65,7 +65,7 @@ function MovieDetail() {
   let backdrop_path = "";
   const videoRef = useRef(null);
   useEffect(() => {
-    setIsFavorite(false);
+    setIsCart(false);
     window.scrollTo(0, 0);
     const getDetails = async (movieId) => {
       try {
@@ -117,21 +117,21 @@ function MovieDetail() {
         console.error("Error fetching movie images:", similars.err);
       }
       if (token) {
-        const favoriteData = user ? user.favoriteFilm : null;
-        if (favoriteData) {
-          setFavoriteList(favoriteData);
-          if (favoriteData.find((item) => item === movieId)) {
-            setIsFavorite(true);
+        const CartData = user ? user.CartFilm : null;
+        if (CartData) {
+          setCartList(CartData);
+          if (CartData.find((item) => item === movieId)) {
+            setIsCart(true);
           }
         } else {
-          console.log("Error fetching favorite list");
+          console.log("Error fetching Cart list");
         }
       }
     };
 
     getDetails(movieId);
   }, [movieId]);
-  // console.log(isFavorite);
+  // console.log(isCart);
   if (movie) {
     poster_path =
       (movie.poster_path &&
@@ -147,12 +147,12 @@ function MovieDetail() {
     const fetchData = async (username) => {
       try {
         if (token) {
-          const favouriteData = await accountApi.getFavorite(username, token);
-          console.log("favouriteData", favouriteData);
-          if (favouriteData) {
-            setFavoriteList(favouriteData);
-            if (favouriteData.includes(movieId)) {
-              setIsFavorite(true);
+          const cartData = await accountApi.getCart(username, token);
+          console.log("cartData", cartData);
+          if (cartData) {
+            setCartList(cartData);
+            if (cartData.includes(movieId)) {
+              setIsCart(true);
             }
           }
         }
@@ -262,42 +262,43 @@ function MovieDetail() {
                   variant="none"
                   size="large"
                   sx={{
-                    color: isFavorite ? "darkred" : "inherit",
+                    color: isCart ? "darkred" : "inherit",
                   }}
                   onClick={async () => {
                     if (token) {
-                      if (isFavorite) {
-                        const res = await accountApi.removeFavorite(
+                      if (isCart) {
+                        const res = await accountApi.removeCart(
                           username,
                           movieId,
                           token
                         );
                         if (res) {
-                          setIsFavorite(false);
-                          toast.success("Removed from favorite list", {
+                          setIsCart(false);
+                          toast.success("Removed from Cart list", {
                             autoClose: 500,
                           });
                         } else {
-                          toast.error("Error removing from favorite list");
+                          toast.error("Error removing from Cart list");
                         }
                       } else {
-                        const res = await accountApi.addFavorite(
+                        const res = await accountApi.addCart(
                           username,
                           movieId,
-                          token
+                          token,
+                      
                         );
                         if (res) {
-                          setIsFavorite(true);
-                          toast.success("Added to favorite list", {
+                          setIsCart(true);
+                          toast.success("Added to Cart list", {
                             autoClose: 500,
                           });
                         } else {
-                          toast.error("Error adding to favorite list");
+                          toast.error("Error adding to Cart list");
                         }
                       }
                     } else {
                       toast.error(
-                        "Please login to add to favorite list. Directing to login page..."
+                        "Please login to add to Cart list. Directing to login page..."
                       );
 
                       await new Promise((resolve) => setTimeout(resolve, 3000));
@@ -308,10 +309,10 @@ function MovieDetail() {
                   loadingPosition="start"
                   loading={false}
                 >
-                  {isFavorite ? (
-                    <FavoriteIcon />
+                  {isCart ? (
+                    <CartIcon />
                   ) : (
-                    <FavoriteBorderOutlinedIcon />
+                    <CartBorderOutlinedIcon />
                   )}
                 </IconButton>
 

@@ -175,7 +175,7 @@ describe('Account', () => {
     }); 
     
    
-    describe('Favorite', () => {
+    describe('Cart', () => {
         let token;
         before(async () => {
             let credentials = {
@@ -200,55 +200,55 @@ describe('Account', () => {
                 const user = await Account.findOne({ username: username });
                 
                 if (user) {
-                    user.favoriteFilm.push("1357");
+                    user.CartFilm.push("1357");
                     user.save();
                 } else {
                     console.log("User not found: " + username);
                 }
             } catch (error) {
-                console.error("Error occurred while adding favorite film:", error);
+                console.error("Error occurred while adding Cart film:", error);
             }
         });
         
-        describe('POST add favorite', () => {
-            it('it should not POST add favorite without token', function(done) {
+        describe('POST add Cart', () => {
+            it('it should not POST add Cart without token', function(done) {
                 chai.request(server)
-                    .post('/account/test/addfavorite/135')
+                    .post('/account/test/addCart/135')
                     .end((err, res) => {
                         res.should.have.status(401);
                         done();
                     });
                 });
-                it('it should POST add favorite', (done) => {
+                it('it should POST add Cart', (done) => {
                     chai.request(server)
-                        .post('/account/test/addfavorite/135')
+                        .post('/account/test/addCart/135')
                         .set('token', 'Bearer ' + token)
                         .end((err, res) => {
                             res.should.have.status(200);
-                            res.body.should.have.property('message').eql('Add favorite film success');
-                            res.body.should.have.property('favorite').length(2);
-                            res.body.favorite[1].should.eql('135');
+                            res.body.should.have.property('message').eql('Add Cart film success');
+                            res.body.should.have.property('Cart').length(2);
+                            res.body.Cart[1].should.eql('135');
                             done();
                         });
                 });
 
-                it('it should not POST add favorite one movie twice', function(done) {
+                it('it should not POST add Cart one movie twice', function(done) {
                     
                     chai.request(server)
-                        .post('/account/test/addfavorite/1357')
+                        .post('/account/test/addCart/1357')
                         .set('token', 'Bearer ' + token)
                         .end((err, res) => {
                             res.should.have.status(409);
                             if (res.status !== 500) {
-                                res.body.should.have.property('message').eql('Movie already in favorites');
+                                res.body.should.have.property('message').eql('Movie already in Carts');
                             }
                             done();
                         });
                 });
             
-            it('it should not POST add favorite with invalid movieId', function(done) {
+            it('it should not POST add Cart with invalid movieId', function(done) {
                 chai.request(server)
-                    .post('/account/test/addfavorite/invalid')
+                    .post('/account/test/addCart/invalid')
                     .set('token', 'Bearer ' + token)
                     .end((err, res) => {
                         res.should.have.status(400);
@@ -256,9 +256,9 @@ describe('Account', () => {
                         done();
                     });
                 });
-            it('it should not POST add favorite with invalid username', function(done) {
+            it('it should not POST add Cart with invalid username', function(done) {
                 chai.request(server)
-                    .post('/account/invalid/addfavorite/135')
+                    .post('/account/invalid/addCart/135')
                     .set('token', 'Bearer ' + token)
                     .end((err, res) => {
                         res.should.have.status(404);
@@ -267,40 +267,40 @@ describe('Account', () => {
                     });
                 });
         });
-        describe('POST remove favorite', () => {
-            it('it should not POST remove favorite without token', function(done) {
+        describe('POST remove Cart', () => {
+            it('it should not POST remove Cart without token', function(done) {
                 chai.request(server)
-                    .post('/account/test/removefavorite/135')
+                    .post('/account/test/removeCart/135')
                     .end((err, res) => {
                         res.should.have.status(401);
                         done();
                     });
                 });
-            it('it should POST remove favorite', (done) => {
+            it('it should POST remove Cart', (done) => {
                 chai.request(server)
-                    .post('/account/test/removefavorite/135')
+                    .post('/account/test/removeCart/135')
                     .set('token', 'Bearer ' + token)
                     .end((err, res) => {
                         res.should.have.status(200);
-                        res.body.should.have.property('message').eql('remove favorite film success');
-                        res.body.should.have.property('favorite').length(1);
-                        res.body.favorite[0].should.eql('1357');
+                        res.body.should.have.property('message').eql('remove Cart film success');
+                        res.body.should.have.property('Cart').length(1);
+                        res.body.Cart[0].should.eql('1357');
                         done();
                     });
                 });
-            it('it should not POST remove of a movie that is not in the favorite list', function(done) {
+            it('it should not POST remove of a movie that is not in the Cart list', function(done) {
                 chai.request(server)
-                    .post('/account/test/removefavorite/13568')
+                    .post('/account/test/removeCart/13568')
                     .set('token', 'Bearer ' + token)
                     .end((err, res) => {
                         res.should.have.status(200);
-                        res.body.should.have.property('message').eql('Movie not found in favorite list');
+                        res.body.should.have.property('message').eql('Movie not found in Cart list');
                         done();
                     });
                 });
-            it('it should not POST remove favorite with invalid user', function(done) {
+            it('it should not POST remove Cart with invalid user', function(done) {
                 chai.request(server)
-                    .post('/account/invalid/removefavorite/135')
+                    .post('/account/invalid/removeCart/135')
                     .set('token', 'Bearer ' + token)
                     .end((err, res) => {
                         res.should.have.status(200);
