@@ -59,7 +59,7 @@ export default function Footer() {
               }}
             ></img>
           </a>
-          <p>© 2024 A+MOVIE. All rights reserved.</p>
+          <p>© 2024 AMOVIE. All rights reserved.</p>
         </FooterMessage>
       </Box>
     </footer>

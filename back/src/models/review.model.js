@@ -9,6 +9,10 @@ const reviewSchema = new Schema({
         type: Date,
         default: () => new Date(new Date().getTime() + 7*60*60*1000) 
     },
+    rating: {
+        type: Number, // Lượng rate
+        required: true
+      }
 });
 
 module.exports = mongoose.model('Review', reviewSchema);

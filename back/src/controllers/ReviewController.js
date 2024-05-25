@@ -58,5 +58,17 @@ class ReviewController {
         }
     }
 
+    async submitRating(req, res) { // Thêm hàm để xử lý việc gửi rating lên server
+        try {
+            const { movieId, rating } = req.body;
+            // Xử lý việc lưu rating vào database (giả sử là hàm saveRating)
+            // const savedRating = await saveRating(movieId, rating);
+            res.json({ success: true, message: 'Rating submitted successfully' });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Server Error');
+        }
+    }
 }
-module.exports = new  ReviewController;
+
+module.exports = new ReviewController;

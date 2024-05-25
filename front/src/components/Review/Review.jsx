@@ -1,4 +1,3 @@
-//test
 import "./review.css";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -13,11 +12,13 @@ import { TextField, Stack, Divider } from "@mui/material";
 import { toast } from "react-toastify";
 import ReviewItem from "../common/ReviewItem";
 import { useAuth } from "../../hooks/AuthContext.js";
+import RatingModal from './ratingmodal';
 
 const Review = ({ movieId }) => {
   const [movie, setMovie] = useState({});
   const navigate = useNavigate();
   const [showReviewForm, setShowReviewForm] = useState(false);
+  const [openRatingModal, setOpenRatingModal] = useState(false);
 
   const [listReviews, setListReviews] = useState([]);
   const [filteredReviews, setFilteredReviews] = useState([]);
@@ -55,13 +56,12 @@ const Review = ({ movieId }) => {
   const user = useAuth().getUser();
   const username = user ? user.username : null;
 
-  //const username = user ? JSON.parse(user).username : "null";
-
   const [newReview, setNewReview] = useState({
     username: username,
     movieId: movieId,
     text: "",
     create_at: "",
+    rating: 0, // Thêm trường rating vào đối tượng review
   });
 
   const handleSubmit = (event) => {
@@ -71,20 +71,19 @@ const Review = ({ movieId }) => {
       movieId: newReview.movieId,
       text: newReview.text,
       create_at: new Date().toISOString().split("T")[0],
+      rating: newReview.rating, // Truyền rating vào dữ liệu review
     };
-    console.log(data);
 
-    //console.log(data, token)
     reviewApi.createReview(data, token).then((res) => {
-      console.log(res);
       if (res.success) {
-        console.log("success");
+        setOpenRatingModal(true);
         setShowReviewForm(false);
         setNewReview({
           username: username,
           movieId: movieId,
           text: "",
           create_at: "",
+          rating: 0,
         });
         setReviews([...reviews, res.review]);
 
@@ -92,9 +91,9 @@ const Review = ({ movieId }) => {
         setFilteredReviews([...reviews, res.review]);
 
         navigate(`/movie/${movieId}`);
+        toast.success("Review created successfully!"); // Thông báo khi tạo review thành công
       } else {
         toast.error("Failed to create review");
-        console.log("error");
       }
     });
   };
@@ -131,10 +130,26 @@ const Review = ({ movieId }) => {
   const handleWriteReviewClick = () => {
     if (token) {
       setShowReviewForm(true);
-      //  navigate('/reviews/' + movieId);
     } else {
       navigate("/login");
     }
+  };
+
+  const handleRatingSubmit = (rating) => {
+    const data = {
+      movieId: movieId,
+      rating: rating,
+    };
+
+    reviewApi.submitRating(data, token).then((res) => {
+      if (res.success) {
+        // Xử lý thành công
+      } else {
+        // Xử lý thất bại
+      }
+    });
+
+    setOpenRatingModal(false);
   };
 
   return (
@@ -210,6 +225,12 @@ const Review = ({ movieId }) => {
             </Stack>
           </form>
         )}
+
+        <RatingModal
+          open={openRatingModal}
+          handleClose={() => setOpenRatingModal(false)}
+          handleSubmitRating={(rating) => handleRatingSubmit(rating)}
+        />
       </Box>
     </>
   );

@@ -6,4 +6,5 @@ router.post('/create',tokenMiddleware.authenticateToken, reviewController.create
 router.get('/:movieId', reviewController.getReviews);
 router.get('/detail/:id', reviewController.getDetailByID);
 router.delete('/delete/:id',tokenMiddleware.authenticateToken, reviewController.deleteReview);
+router.post('/rate', tokenMiddleware.authenticateToken, reviewController.submitRating);
 module.exports = router;
