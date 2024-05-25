@@ -49,8 +49,10 @@ Run the app
 
 ```
 $ cd back
+$ npm i
 $ npm start
 $ cd front
+$ npm i
 $ npm start
 
 ``
