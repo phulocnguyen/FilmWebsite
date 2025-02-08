@@ -57,21 +57,21 @@ Sử dụng thuật toán Matrix Factorization, cụ thể là Embedding Recomme
 # 4. Cài đặt và chạy dự án
 
 ## 4.1. Clone Repository
-
+```bash
 $ git clone https://github.com/phulocnguyen/Cancer-Diagnosis-AI-based-System.git
-
+```
 ## 4.2. Cài đặt Backend
-
+```bash
 $ cd back
 $ npm install
 $ npm start
-
+```
 ## 4.3. Cài đặt Frontend
-
+```bash
 $ cd front
 $ npm install
 $ npm start
-
+```
 ## 4.4. Yêu cầu hệ thống
 
 Node.js phải được cài đặt trên máy tính của bạn.
