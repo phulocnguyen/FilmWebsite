@@ -58,7 +58,7 @@ Sử dụng thuật toán Matrix Factorization, cụ thể là Embedding Recomme
 
 ## 4.1. Clone Repository
 ```bash
-$ git clone https://github.com/phulocnguyen/Cancer-Diagnosis-AI-based-System.git
+$ git clone https://github.com/phulocnguyen/FilmWebsite.git
 ```
 ## 4.2. Cài đặt Backend
 ```bash
