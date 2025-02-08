@@ -1,62 +1,79 @@
-# Hệ thống thương mại điện tử theo hình thức website cho thuê phim
-# Thành viên
-1. 22022547 Nguyễn Phú Lộc
-2. 22022605 Nguyễn Duy Minh Lâm
-3. 22022552 Trần Đức Đăng Khôi
-4. 22022551 Bùi Ngọc Khánh
+HỆ THỐNG THƯƠNG MẠI ĐIỆN TỬ - WEBSITE CHO THUÊ PHIM
 
-# Giới thiệu dự án
+1. Thành viên
 
-Phần mềm được phát triển là một website cho thuê phim với mục đích cung cấp cho người dùng một nền tảng có thể xem phim trực tuyến. Hệ thống được phát triển với giao diện dễ nhìn, dễ dàng thao tác và với một số chức năng thiết yếu và đơn giản.
+22022547 - Nguyễn Phú Lộc
 
-## Mô tả
+22022605 - Nguyễn Duy Minh Lâm
 
-Hệ thống cung cấp một giao diện để người dùng có thể thao tác khá tương tự với các website xem phim khác bao gồm: đăng kí, đăng nhập, xem thông tin phim, thêm vào danh sách yêu thích, ... 
+22022552 - Trần Đức Đăng Khôi
 
-Đặc biệt, hệ thống còn được tích hợp một module AI là Recommendation System (hệ thống đề xuất). Module này hoạt động dựa trên 2 nguyên lí chính bao gồm Content-based filtering (Lọc theo nội dung) và Collaborative filtering (Lọc cộng tác).
+22022551 - Bùi Ngọc Khánh
 
-Lọc dựa trên nội dung (Content-based filtering)
+2. Giới thiệu dự án
 
-	• Với các nội dung của phim sẽ được chuyển thành ma trận TF-IDF, các giá trị trong ma trận này là các từ trong nội dung phim.  
- 
-	• Sau đó, các giá trị dựa trên ma trận TF-IDF đã được tạo ra trước đó sẽ được dùng để tính toán ma trận độ tương đồng cosin.
- 
-	• Sau khi tính toán được các độ tương đồng của các phim dựa trên nội dung, ta sẽ sắp xếp và lấy 10 phim có độ tương đồng lớn nhất để đề xuất cho người dùng.
+Phần mềm được phát triển là một website cho thuê phim trực tuyến, cung cấp cho người dùng nền tảng xem phim với giao diện thân thiện, dễ thao tác, cùng với các tính năng thiết yếu như đăng ký, đăng nhập, xem thông tin phim, thêm phim vào danh sách yêu thích, v.v.
 
-Lọc cộng tác (Collaborative filtering)
-	• Sử dụng thuật toán gợi ý dựa trên embedding (nhúng), cụ thể là Matrix Factorization trong hệ thống gợi ý
- 
-	• Các bước chính của thuật toán Matrix Factorization:
- 
-		o Matrix Factorization: Thuật toán này phân tích ma trận xếp hạng (rating matrix) thành hai ma trận tiềm ẩn(latent matrices) đại diện cho người dùng và phim. Các ma trận này khi nhân lại với nhau sẽ tái tạo gần đúng ma trận xếp hạng ban đầu.
-  
-		o Embedding: Các vector embedding cho người dùng và phim chính là các vector hàng của các ma trận tiềm ẩn này.
-  
-		o Dự đoán của mô hình là tích vô hướng giữa embedding người dùng và phim cộng với bias
-  
-		o Optimization: Quá trình tối ưu hóa sử dụng hàm mất mát (Binary Crossentropy) để điều chỉnh các vector embedding sao cho dự đoán của mô hình khớp với các xếp hạng thực tế.
+Đặc biệt, hệ thống được tích hợp Recommendation System (hệ thống đề xuất phim) sử dụng trí tuệ nhân tạo (AI) để tối ưu trải nghiệm người dùng.
 
-## To Install:
+3. Mô tả hệ thống
 
-Cloning the Repository:
+Chức năng chính:
 
-```
+Đăng ký, đăng nhập, quản lý tài khoản người dùng
+
+Tìm kiếm phim theo thể loại, tên phim
+
+Xem thông tin chi tiết về phim
+
+Thêm phim vào danh sách yêu thích
+
+Hệ thống gợi ý phim thông minh dựa trên sở thích người dùng
+
+Hệ thống gợi ý phim (Recommendation System)
+
+Hệ thống đề xuất phim được xây dựng dựa trên hai kỹ thuật chính:
+
+1. Lọc dựa trên nội dung (Content-based Filtering)
+
+Mô hình sử dụng phương pháp TF-IDF (Term Frequency-Inverse Document Frequency) để mã hóa nội dung phim thành ma trận số học.
+
+Sau đó, ma trận độ tương đồng Cosine được tính toán để xác định mức độ giống nhau giữa các bộ phim.
+
+Dựa trên kết quả tính toán, hệ thống chọn ra 10 phim có độ tương đồng cao nhất để đề xuất cho người dùng.
+
+2. Lọc cộng tác (Collaborative Filtering)
+
+Sử dụng thuật toán Matrix Factorization, cụ thể là Embedding Recommendation System, để học thói quen người dùng:
+
+Matrix Factorization: Phân rã ma trận xếp hạng phim thành hai ma trận tiềm ẩn (latent matrices) đại diện cho người dùng và phim.
+
+Embedding: Các vector embedding này giúp dự đoán mức độ yêu thích của người dùng đối với một bộ phim.
+
+Dự đoán: Tích vô hướng giữa embedding người dùng và phim cộng với bias được sử dụng để đưa ra dự đoán.
+
+Tối ưu hóa: Sử dụng hàm mất mát Binary Crossentropy để tối ưu mô hình, giúp dự đoán chính xác hơn.
+
+4. Cài đặt và chạy dự án
+
+4.1. Clone Repository
+
 $ git clone https://github.com/phulocnguyen/Cancer-Diagnosis-AI-based-System.git
 
-```
+4.2. Cài đặt Backend
 
-Run the app
-
-```
 $ cd back
-$ npm i
+$ npm install
 $ npm start
+
+4.3. Cài đặt Frontend
+
 $ cd front
-$ npm i
+$ npm install
 $ npm start
 
-``
-Make sure that your local machine installed Node.js
+4.4. Yêu cầu hệ thống
 
+Node.js phải được cài đặt trên máy tính của bạn.
 
-
+Sử dụng trình duyệt hiện đại như Google Chrome hoặc Firefox để đảm bảo trải nghiệm tốt nhất.
